@@ -1,4 +1,4 @@
-package com.ittalent.application.models;
+package com.ittalent.application.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Phone")
@@ -21,6 +23,7 @@ public class Phone {
 	private String number;
 	private String citycode;
 	private String countrycode;
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;

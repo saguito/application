@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'groovy'
 }
 
 group = 'com.ittalent'
@@ -10,17 +11,39 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	jcenter()
+	google()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.hibernate.validator:hibernate-validator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-core:5.4.1'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'org.codehaus.groovy:groovy:3.0.5'
+	implementation 'junit:junit:4.12'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+	testImplementation 'org.junit.platform:junit-platform-commons:1.5.2'
+	testImplementation 'org.mockito:mockito-core:2.+'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }
 
 test {
