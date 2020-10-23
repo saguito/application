@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,7 +55,6 @@ public class UserController {
 		if(errors.isEmpty()) {
 
 			setUserData(u);
-
 			userRepository.save(u);
 			
 			UserResponse userData = new UserResponse();
@@ -123,22 +123,22 @@ public class UserController {
 			
 			if(userRepository.checkForExistingEmail(userName)) {
 				logger.info("checkForExistingEmail is TRUE");
-				errors.add(new Error(HttpStatus.CONFLICT, "El correo ya existe"));	
+				errors.add(new Error(HttpStatus.CONFLICT, "El correo ya existe."));
 			}
 			
 			if(!ValidationUtils.isValidName(u.getName())) {
 				logger.info("isValidEmail is FALSE");
-				errors.add(new Error(HttpStatus.BAD_REQUEST, "El nombre del usuario no puede contener caracteres como '?, *, (, )' o numeros"));
+				errors.add(new Error(HttpStatus.BAD_REQUEST, "El nombre del usuario no puede contener caracteres como '?, *, (, )' o numeros."));
 			}
 			
 			if(!ValidationUtils.isValidEmail(u.getEmail())) {
 				logger.info("isValidEmail is FALSE");
-				errors.add(new Error(HttpStatus.BAD_REQUEST, "El correo no es correcto. Debe contener tener el formato 'aaaaaaa@dominio.cl'"));
+				errors.add(new Error(HttpStatus.BAD_REQUEST, "El correo no es correcto. Debe contener tener el formato 'aaaaaaa@dominio.cl'."));
 			}
 			
 			if(!ValidationUtils.isValidPassword(u.getPassword())) {
 				logger.info("isValidPassword is FALSE");
-				errors.add(new Error(HttpStatus.BAD_REQUEST, "El formato del password no es correcto. Debe contener Una (1) Mayuscula, lestras minusculas y Dos (2) numeros\""));			
+				errors.add(new Error(HttpStatus.BAD_REQUEST, "El formato del password no es correcto. Debe contener Una (1) Mayuscula, lestras minusculas y Dos (2) numeros."));
 			}
 
 			
